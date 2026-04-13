@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  anli-classifier:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: anli-r2-classifier
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=./models/best_checkpoint
+    volumes:
+      - ./models/best_checkpoint:/app/models/best_checkpoint:ro
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 4G
